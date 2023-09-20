@@ -38,6 +38,7 @@ export default function Login() {
           pauseOnHover: true,
           draggable: true,
           transition: Slide,
+          className: "rounded-xl"
         });
       }
     }

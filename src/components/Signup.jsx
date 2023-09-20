@@ -30,12 +30,7 @@ export default function Signup() {
       localStorage.setItem("registeredEmail", registerEmail);
       navigate("/Home");
     } catch (error) {
-      if (
-        // error.code === "auth/user-not-found" ||
-        // error.code === "auth/wrong-password" ||
-        error.code === "auth/invalid-email"
-        // error.code === "auth/invalid-login-credentials"
-      ) {
+      if (error.code === "auth/invalid-email") {
         toast.error("Invalid email. Please try again.", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000, // 3 seconds
@@ -44,47 +39,52 @@ export default function Signup() {
           pauseOnHover: true,
           draggable: true,
           transition: Slide,
+          className: "rounded-xl",
         });
-      } else if (error.code === "auth/weak-password"){
+      } else if (error.code === "auth/weak-password") {
         toast.error("Password should be at least, 6 characters.", {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 3000, // 3 seconds
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                transition: Slide,
-              });
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000, // 3 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          transition: Slide,
+          className: "rounded-xl",
+        });
       } else if (error.code === "auth/missing-password") {
         toast.error("Please input correct password.", {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 3000, // 3 seconds
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                transition: Slide,
-              });
-      } else if (error.code === "auth/missing-email"){
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000, // 3 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          transition: Slide,
+          className: "rounded-xl",
+        });
+      } else if (error.code === "auth/missing-email") {
         toast.error("Please input correct email.", {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 3000, // 3 seconds
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                transition: Slide,
-              });
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000, // 3 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          transition: Slide,
+          className: "rounded-xl",
+        });
       } else if (error.code === "auth/email-already-in-use") {
         toast.error("This email is already in use.", {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 3000, // 3 seconds
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                transition: Slide,
-              });
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000, // 3 seconds
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          transition: Slide,
+          className: "rounded-xl",
+        });
       }
       console.log(error.message);
     }

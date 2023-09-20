@@ -20,6 +20,7 @@ import { mdiMagnify } from "@mdi/js";
 import { motion, useCycle, AnimatePresence } from "framer-motion";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+
 export default function Home() {
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
@@ -45,7 +46,6 @@ export default function Home() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      //       fetchRandomPhotos();
     }, 5000);
   }, []);
 
@@ -58,7 +58,7 @@ export default function Home() {
 
   useEffect(() => {
     fetch(
-      `https://pixabay.com/api/?key=${API_KEY}&q=${term}&tags=photo&pretty=true`
+      `https://pixabay.com/api/?key=${apiKey}&q=${term}&tags=photo&pretty=true`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -68,7 +68,7 @@ export default function Home() {
       .catch((err) => console.log(err));
   }, [term]);
 
-  const API_KEY = "39533503-64bb892cd455bc69d9f1028e5";
+  const apiKey = "39533503-64bb892cd455bc69d9f1028e5";
 
   const handleDragEnd = (result) => {
     if (!result.destination) {
@@ -84,7 +84,6 @@ export default function Home() {
 
     setImages(reorderedImages);
 
-    // Save reordered images to local storage
     localStorage.setItem("savedImages", JSON.stringify(reorderedImages));
   };
 
