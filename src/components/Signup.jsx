@@ -100,40 +100,40 @@ export default function Signup() {
         <form
           className="flex flex-col py-6 px-10
          absolute
-         top-[50%] left-[50%] shadow-xlg tranform translate-x-[-50%] translate-y-[-50%] w-[280px] sm:w-[32rem] rounded-3xl
+         top-[50%] left-[50%] shadow-xlg tranform translate-x-[-50%] translate-y-[-50%] w-[300px] sm:w-[500px] rounded-3xl
          bg-white/20 backdrop-saturate-125
         "
         >
           <p className="text-center font-bodyFont pb-6 font-bold text-xl sm:text-2xl tracking-wide">
             REGISTER
           </p>
-          <label className="text-sm sm:text-xl pb-2">Display Name</label>
+          <label className="text-sm sm:text-xl pb-5">*Display Name</label>
           <input
             type="text"
             placeholder="John Doe" // Customize placeholder text
-            className="border-b border-white mb-8 border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic"
+            className="border-b border-white mb-8 border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic text-sm sm:text-[14px]"
             required
             onChange={(event) => {
               setRegisterDisplayName(event.target.value);
             }}
           />
 
-          <label className="text-sm sm:text-xl pb-2">Email</label>
+          <label className="text-sm sm:text-xl pb-5">*Email</label>
           <input
             type="email"
             placeholder="useremail@gmail.com"
-            className="border-b border-white mb-8 border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic"
+            className="border-b border-white mb-8 border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic text-sm sm:text-[14px]"
             required
             onChange={(event) => {
               setRegisterEmail(event.target.value);
             }}
           />
 
-          <label className="text-sm sm:text-xl pb-2">Password</label>
+          <label className="text-sm sm:text-xl pb-5">*Password</label>
           <input
             type="password"
             placeholder="1Password"
-            className="border-b border-white border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic"
+            className="border-b border-white border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic text-sm sm:text-[14px]"
             required
             onChange={(event) => {
               setRegisterPassword(event.target.value);

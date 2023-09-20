@@ -30,7 +30,7 @@ export default function Login() {
         error.code === "auth/invalid-email" ||
         error.code === "auth/invalid-login-credentials"
       ) {
-        toast.error("Invalid email or password. Use useremail@gmail.com and 1Password as default.", {
+        toast.error("Invalid email or password. Use user@example.com and 1Password as default.", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000, // 3 seconds
           hideProgressBar: false,
@@ -53,28 +53,28 @@ export default function Login() {
         <form
           className="flex flex-col py-6 px-10
          absolute
-         top-[50%] left-[50%] shadow-xlg transform translate-x-[-50%] translate-y-[-50%] w-[275px] sm:w-[32rem] rounded-3xl
+         top-[50%] left-[50%] shadow-xlg transform translate-x-[-50%] translate-y-[-50%] w-[300px] sm:w-[500px] rounded-3xl
          bg-white/20 backdrop-saturate-125"
         >
           <p className="text-center font-bodyFont pb-6 font-bold text-xl sm:text-2xl tracking-wide">
             LOGIN
           </p>
-          <label className="text-sm sm:text-xl pb-2">Email</label>
+          <label className="text-sm sm:text-xl pb-5">*Email</label>
           <input
             type="email"
-            placeholder="useremail@gmail.com"
-            className="border-b border-white mb-10 border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic"
+            placeholder="user@example.com"
+            className="border-b border-white mb-10 border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic text-sm sm:text-[14px]"
             required
             onChange={(event) => {
               setLoginEmail(event.target.value);
             }}
           />
 
-          <label className="text-sm sm:text-xl pb-2">Password</label>
+          <label className="text-sm sm:text-xl pb-5">*Password</label>
           <input
             type="password"
             placeholder="1Password"
-            className="border-b border-white border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic"
+            className="border-b border-white border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic text-sm sm:text-[14px]"
             required
             onChange={(event) => {
               setLoginPassword(event.target.value);
