@@ -17,16 +17,8 @@ import {
 } from "@mdi/js";
 import { mdiAccount } from "@mdi/js";
 import { mdiMagnify } from "@mdi/js";
-import {
-  motion,
-  useCycle,
-  AnimatePresence,
-} from "framer-motion";
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-} from "react-beautiful-dnd";
+import { motion, useCycle, AnimatePresence } from "framer-motion";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export default function Home() {
   const [userData, setUserData] = useState(null);
@@ -53,7 +45,7 @@ export default function Home() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-//       fetchRandomPhotos();
+      //       fetchRandomPhotos();
     }, 5000);
   }, []);
 
@@ -118,26 +110,26 @@ export default function Home() {
         className="text-white min-h-screen"
       >
         {loading ? (
-                <div className="absolute top-[40%] left-[50%] transform translate-x-[-50%] translate-y-[0%]">
-          <BounceLoader
-            className=" min-h-screen"
-            color="white"
-            loading={loading}
-            size={70}
-          />
+          <div className="absolute top-[40%] min-h-screen left-[50%] transform translate-x-[-50%] translate-y-[0%]">
+            <BounceLoader
+              className=""
+              color="white"
+              loading={loading}
+              size={70}
+            />
           </div>
         ) : (
           <div>
             <header className="flex justify-between font-bodyFont py-4 px-4 mb-10 border-b border-white/40 w-full">
               <div className="flex">
                 <Link to="/Home">
-                <Icon path={mdiImageAutoAdjust} size={2} />
+                  <Icon path={mdiImageAutoAdjust} size={2} />
 
-                <div className="sm:mt-2 sm:ml-3 ">
-                  <p className="text-white font-bold hidden md:contents text-2xl">
-                    Image Gallery
-                  </p>
-                </div> 
+                  <div className="sm:mt-2 sm:ml-3 ">
+                    <p className="text-white font-bold hidden md:contents text-2xl">
+                      Image Gallery
+                    </p>
+                  </div>
                 </Link>
               </div>
               <form>
@@ -150,9 +142,7 @@ export default function Home() {
                     className="bg-black/10 w-[150px] sm:w-[25rem] md:w-[28rem] text-white rounded border border-black/10 p-4 text-sm"
                     onChange={(e) => setTerm(e.target.value)}
                   />
-                  <p
-                    className="absolute inset-y-0 cursor-pointer right-0 mr-2 mt-4 ml-[-25px] top-0 "
-                  >
+                  <p className="absolute inset-y-0 cursor-pointer right-0 mr-2 mt-4 ml-[-25px] top-0 ">
                     <Icon className="text-white" path={mdiMagnify} size={1} />
                   </p>
                 </div>
@@ -221,8 +211,8 @@ export default function Home() {
                             className="sm:w-[300px] w-[280px] text-black"
                           />
 
-                          <div className="py-4 text-sm sm:text-xl">
-                            <p className="pb-4">{userData.name}</p>
+                          <div className="py-4 text-sm text-center sm:text-xl">
+                            <p className="pb-4 text-center">{userData.name}</p>
                             <p> {userData.email}</p>
                           </div>
                           <p
@@ -251,10 +241,7 @@ export default function Home() {
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable droppableId="image-gallery" type="image">
                 {(provided) => (
-                  <div
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
                     {loading ? (
                       <div className="min-h-screen text-center text-2xl font-bold font-mooli">
                         <h1>Loading...</h1>
@@ -294,61 +281,57 @@ export default function Home() {
                       </main>
                     )}
                     {provided.placeholder}
-
                   </div>
                 )}
               </Droppable>
             </DragDropContext>
             <footer
-          className={`flex justify-between duration-700 text-[10px] p-6 px-6 md:px-10 mt-10 border-t border-t-white`}
-        >
-          <div className="flex">
-            <p className={`pr-2 text-black`}>
-              &copy;2023
-            </p>
-            <a
-              href="https://github.com/theCephas"
-              className="inline cursor-pointer text-sky-500 "
+              className={`flex justify-between duration-700 text-[10px] p-6 px-6 md:px-10 mt-10 border-t border-t-white`}
             >
-              Osho Iseoluwa
-            </a>
-          </div>
-          <div className={` text-black flex mt-[-4px]`}>
-            <a
-              className=" hover:text-sky-500 duration-700"
-              href="https://www.linkedin.com/in/iseoluwa-osho"
-            >
-              <Icon path={mdiLinkedin} size={1} />
-            </a>
-            <a
-              className="px-4 hover:text-sky-500 duration-700"
-              href="mailto:oshoiseoluwa@gmail.com"
-            >
-              <Icon path={mdiEmailOutline} size={1} />
-            </a>
-            <a
-              className=" hover:text-sky-500 duration-700"
-              href="tel:+2348110470908"
-            >
-              <Icon path={mdiPhoneOutline} size={1} />
-            </a>
-            <a
-              className="px-4 hover:text-sky-500 duration-700"
-              href="https://github.com/theCephas"
-            >
-              <Icon path={mdiGithub} size={1} />
-            </a>
-            <a
-              className=" hover:text-sky-500 duration-700"
-              href="https://twitter.com/OshoIseoluwa"
-            >
-              <Icon path={mdiTwitter} size={1} />
-            </a>
-          </div>
-        </footer>
+              <div className="flex">
+                <p className={`pr-2 text-black`}>&copy;2023</p>
+                <a
+                  href="https://github.com/theCephas/tc-up-image"
+                  className="inline cursor-pointer text-sky-500 "
+                >
+                  Osho Iseoluwa
+                </a>
+              </div>
+              <div className={` text-black flex mt-[-4px]`}>
+                <a
+                  className=" hover:text-sky-500 duration-700"
+                  href="https://www.linkedin.com/in/iseoluwa-osho"
+                >
+                  <Icon path={mdiLinkedin} size={1} />
+                </a>
+                <a
+                  className="px-4 hover:text-sky-500 duration-700"
+                  href="mailto:oshoiseoluwa@gmail.com"
+                >
+                  <Icon path={mdiEmailOutline} size={1} />
+                </a>
+                <a
+                  className=" hover:text-sky-500 duration-700"
+                  href="tel:+2348110470908"
+                >
+                  <Icon path={mdiPhoneOutline} size={1} />
+                </a>
+                <a
+                  className="px-4 hover:text-sky-500 duration-700"
+                  href="https://github.com/theCephas"
+                >
+                  <Icon path={mdiGithub} size={1} />
+                </a>
+                <a
+                  className=" hover:text-sky-500 duration-700"
+                  href="https://twitter.com/OshoIseoluwa"
+                >
+                  <Icon path={mdiTwitter} size={1} />
+                </a>
+              </div>
+            </footer>
           </div>
         )}
-        
       </div>
     </Fragment>
   );
