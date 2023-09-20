@@ -147,7 +147,7 @@ export default function Home() {
                     name="search"
                     id=""
                     placeholder="Find a photo"
-                    className="bg-black/10 w-auto sm:w-[25rem] md:w-[28rem] text-white rounded border border-black/10 p-4 text-sm"
+                    className="bg-black/10 w-[150px] sm:w-[25rem] md:w-[28rem] text-white rounded border border-black/10 p-4 text-sm"
                     onChange={(e) => setTerm(e.target.value)}
                   />
                   <p
