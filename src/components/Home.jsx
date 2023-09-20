@@ -5,7 +5,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase-config.js";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { HashLoader } from "react-spinners";
+import { BounceLoader } from "react-spinners";
 import Icon from "@mdi/react";
 import {
   mdiEmailOutline,
@@ -118,12 +118,14 @@ export default function Home() {
         className="text-white min-h-screen"
       >
         {loading ? (
-          <HashLoader
-            className="absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] min-h-screen self-center"
+                <div className="absolute top-[40%] left-[50%] transform translate-x-[-50%] translate-y-[0%]">
+          <BounceLoader
+            className=" min-h-screen"
             color="white"
             loading={loading}
             size={70}
           />
+          </div>
         ) : (
           <div>
             <header className="flex justify-between font-bodyFont py-4 px-4 mb-10 border-b border-white/40 w-full">
@@ -132,20 +134,20 @@ export default function Home() {
                 <Icon path={mdiImageAutoAdjust} size={2} />
 
                 <div className="sm:mt-2 sm:ml-3 ">
-                  <p className="text-white font-bold hidden sm:contents text-2xl">
+                  <p className="text-white font-bold hidden md:contents text-2xl">
                     Image Gallery
                   </p>
-                </div>
+                </div> 
                 </Link>
               </div>
               <form>
-                <div className="relative">
+                <div className="relative mx-4">
                   <input
                     type="search"
                     name="search"
                     id=""
                     placeholder="Find a photo"
-                    className="bg-black/10 sm:w-[25rem] md:w-[28rem] text-white rounded border border-black/10 p-4 text-sm"
+                    className="bg-black/10 w-auto sm:w-[25rem] md:w-[28rem] text-white rounded border border-black/10 p-4 text-sm"
                     onChange={(e) => setTerm(e.target.value)}
                   />
                   <p
@@ -166,21 +168,21 @@ export default function Home() {
                       closed: { rotate: 0, y: 0, transition: { duration: 1 } },
                       open: { rotate: 45, y: 5, transition: { duration: 1 } },
                     }}
-                    className="w-8 h-px bg-white block"
+                    className="w-5 sm:w-9 h-px bg-white block"
                   ></motion.span>
                   <motion.span
                     variants={{
                       closed: { opacity: 1 },
                       open: { opacity: 0 },
                     }}
-                    className="w-11 h-px bg-white block"
+                    className="w-5 sm:w-9 h-px bg-white block"
                   ></motion.span>
                   <motion.span
                     variants={{
                       closed: { rotate: 0, y: 0 },
                       open: { rotate: -45, y: -5 },
                     }}
-                    className="w-8 h-px bg-white block"
+                    className="w-5 sm:w-9 h-px bg-white block"
                   ></motion.span>
                 </motion.button>
               </div>
@@ -259,7 +261,7 @@ export default function Home() {
                       </div>
                     ) : (
                       <main className="mx-4 sm:mx-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-                        {images.map((image, index) => (
+                        {images.slice(0, 12).map((image, index) => (
                           <Draggable
                             key={image.id.toString()}
                             draggableId={image.id.toString()}
@@ -277,7 +279,7 @@ export default function Home() {
                                     src={image.webformatURL}
                                     alt={image.tags}
                                   />
-                                  <p className="text-sm rounded-b font-bodyFont bg-white/20 text-white px-4 py-4 w-full h-[45px] bottom-0">
+                                  <p className="text-sm rounded-b font-bodyFont bg-white/20 text-white px-4 py-4 w-full h-[50px] bottom-0">
                                     Tags:{" "}
                                     <span className="text-black font-bold">
                                       {" "}
@@ -292,13 +294,12 @@ export default function Home() {
                       </main>
                     )}
                     {provided.placeholder}
+
                   </div>
                 )}
               </Droppable>
             </DragDropContext>
-          </div>
-        )}
-        <footer
+            <footer
           className={`flex justify-between duration-700 text-[10px] p-6 px-6 md:px-10 mt-10 border-t border-t-white`}
         >
           <div className="flex">
@@ -345,6 +346,9 @@ export default function Home() {
             </a>
           </div>
         </footer>
+          </div>
+        )}
+        
       </div>
     </Fragment>
   );
