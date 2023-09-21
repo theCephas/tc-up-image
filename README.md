@@ -1,8 +1,8 @@
 ### Image Gallery with Drag and Drop Feature
 
-This is a simple project that displays several images from the pixabay API. The user can drag images and reorder them to suit tastes. This project is also my task 3 project - HNG INTERNSHIP.
+This is a simple project that displays several animal images. The user can drag images and reorder them to suit tastes. This project is also my task 3 project - HNG INTERNSHIP.
 
-Also, users have the liberty to register with their email and password. However, choosing not to register is not bad since there is a default log in provided:
+Also, users have the liberty to register with their email and password. However, choosing not to register is not a bad choice since there is a default log in provided:
 
 Email: user@example.com
 Password: 1Password
