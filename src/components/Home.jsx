@@ -23,7 +23,6 @@ import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
-  rectSortingStrategy,
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -279,9 +278,7 @@ export default function Home() {
                     onDragEnd={onDragEnd}
                   >
                     <SortableContext
-                      items={images}
-                      strategy={rectSortingStrategy}
-                    >
+                      items={images}>
                       <main className="mx-4 sm:mx-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
                         {filteredImages.map((image, index) => (
                           <SortableUser key={index} image={image} />
