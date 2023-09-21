@@ -19,12 +19,14 @@ import { mdiAccount } from "@mdi/js";
 import { mdiMagnify } from "@mdi/js";
 import { motion, useCycle, AnimatePresence } from "framer-motion";
 import { data } from "./data";
-import { DndContext, closestCenter } from "@dnd-kit/core";
-import {
-  SortableContext,
-  arrayMove,
-  useSortable,
-} from "@dnd-kit/sortable";
+import { DndContext,
+        closestCenter,
+        useSensors,
+        KeyboardSensor,
+        MouseSensor,
+        TouchSensor,
+        useSensor, } from "@dnd-kit/core";
+import { SortableContext, arrayMove, useSortable, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import PropTypes from "prop-types";
 
@@ -58,7 +60,7 @@ export default function Home() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
- };
+  };
 
   const logOut = async () => {
     await signOut(auth);
@@ -85,7 +87,13 @@ export default function Home() {
       return arrayMove(images, oldIndex, newIndex);
     });
   };
-
+  const sensors = useSensors(
+        useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+        useSensor(TouchSensor, {
+          activationConstraint: { delay: 50, tolerance: 10 },
+        }),
+        useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+      )
   const SortableUser = ({ image }) => {
     const { attributes, listeners, setNodeRef, transform, transition } =
       useSortable({ id: image.id });
@@ -102,13 +110,13 @@ export default function Home() {
         {...listeners}
         key={image.id}
       >
-        <div className="w-[300px] m-auto">
+        <div className="m-auto w-[300px]">
           <img
             className="rounded-t shadow-lg w-[300px] h-[200px]"
             src={image.src}
             alt={image.alt}
           />
-          <p className="text-sm rounded-b font-bodyFont w-[300px] bg-white/20 text-white px-4 py-4 w-full h-[50px] bottom-0">
+          <p className="text-sm rounded-b font-bodyFont w-[300px] bg-white/20 text-white px-4 py-4 h-[50px] bottom-0">
             #<span className="text-black font-bold">{image.tags}</span>
           </p>
         </div>
@@ -272,21 +280,19 @@ export default function Home() {
                   <h1>Loading...</h1>
                 </div>
               ) : (
-                <div>
+                <main className="mx-4 sm:mx-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
                   <DndContext
                     collisionDetection={closestCenter}
                     onDragEnd={onDragEnd}
+                    sensors={sensors}
                   >
-                    <SortableContext
-                      items={images}>
-                      <main className="mx-4 sm:mx-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-                        {filteredImages.map((image, index) => (
-                          <SortableUser key={index} image={image} />
-                        ))}
-                      </main>
+                    <SortableContext items={images}>
+                      {filteredImages.map((image, index) => (
+                        <SortableUser key={index} image={image} />
+                      ))}
                     </SortableContext>
                   </DndContext>
-                </div>
+                </main>
               )}
             </div>
 
