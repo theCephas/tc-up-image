@@ -18,15 +18,23 @@ import {
 import { mdiAccount } from "@mdi/js";
 import { mdiMagnify } from "@mdi/js";
 import { motion, useCycle, AnimatePresence } from "framer-motion";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
+import { data } from "./data";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  rectSortingStrategy,
+  useSortable,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import PropTypes from "prop-types";
 
 export default function Home() {
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState([]);
-  const [term, setTerm] = useState("");
+  const [images, setImages] = useState(data);
+  const [searchTerm, setSearchTerm] = useState(""); // State for the search term
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -49,43 +57,9 @@ export default function Home() {
     }, 5000);
   }, []);
 
-  useEffect(() => {
-    const savedImages = JSON.parse(localStorage.getItem("savedImages"));
-    if (savedImages) {
-      setImages(savedImages);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetch(
-      `https://pixabay.com/api/?key=${apiKey}&q=${term}&tags=photo&pretty=true`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setImages(data.hits);
-        localStorage.setItem("savedImages", JSON.stringify(data.hits));
-      })
-      .catch((err) => console.log(err));
-  }, [term]);
-
-  const apiKey = "39533503-64bb892cd455bc69d9f1028e5";
-
-  const handleDragEnd = (result) => {
-    if (!result.destination) {
-      return;
-    }
-
-    const startIndex = result.source.index;
-    const endIndex = result.destination.index;
-
-    const reorderedImages = [...images];
-    const [movedItem] = reorderedImages.splice(startIndex, 1);
-    reorderedImages.splice(endIndex, 0, movedItem);
-
-    setImages(reorderedImages);
-
-    localStorage.setItem("savedImages", JSON.stringify(reorderedImages));
-  };
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+ };
 
   const logOut = async () => {
     await signOut(auth);
@@ -94,6 +68,62 @@ export default function Home() {
 
   const [mobileNav, toggleMobileNav] = useCycle(false, true);
 
+  // Filter the images based on the search term
+  const filteredImages = images.filter((image) =>
+    image.tags.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const onDragEnd = (event) => {
+    const { active, over } = event;
+
+    if (!active || active.id === over.id) {
+      return;
+    }
+
+    setImages((images) => {
+      const oldIndex = images.findIndex((image) => image.id === active.id);
+      const newIndex = images.findIndex((image) => image.id === over.id);
+      return arrayMove(images, oldIndex, newIndex);
+    });
+  };
+
+  const SortableUser = ({ image }) => {
+    const { attributes, listeners, setNodeRef, transform, transition } =
+      useSortable({ id: image.id });
+
+    const style = {
+      transition,
+      transform: CSS.Transform.toString(transform),
+    };
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
+        key={image.id}
+      >
+        <div className="w-[300px] m-auto">
+          <img
+            className="rounded-t shadow-lg w-[300px] h-[200px]"
+            src={image.src}
+            alt={image.alt}
+          />
+          <p className="text-sm rounded-b font-bodyFont w-[300px] bg-white/20 text-white px-4 py-4 w-full h-[50px] bottom-0">
+            #<span className="text-black font-bold">{image.tags}</span>
+          </p>
+        </div>
+      </div>
+    );
+  };
+  SortableUser.propTypes = {
+    image: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired,
+      alt: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    }).isRequired,
+  };
   return (
     <Fragment>
       <Helmet>
@@ -131,15 +161,15 @@ export default function Home() {
                   </div>
                 </Link>
               </div>
-              <form>
+              <form onSubmit={handleSearchSubmit}>
                 <div className="relative mx-4">
                   <input
                     type="search"
                     name="search"
                     id=""
-                    placeholder="Find a photo"
+                    placeholder="Find a photo by tag"
                     className="bg-black/10 w-[150px] sm:w-[25rem] md:w-[28rem] text-white rounded border border-black/10 p-4 text-sm"
-                    onChange={(e) => setTerm(e.target.value)}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                   <p className="absolute inset-y-0 cursor-pointer right-0 mr-2 mt-4 ml-[-25px] top-0 ">
                     <Icon className="text-white" path={mdiMagnify} size={1} />
@@ -231,59 +261,38 @@ export default function Home() {
                 )}
               </AnimatePresence>
             </header>
-            {!loading && images.length === 0 && (
+            {!loading && filteredImages.length === 0 && (
               <div className="min-h-screen text-center text-2xl font-bold font-mooli">
                 <h1>No results found...</h1>
               </div>
             )}
 
-            <DragDropContext onDragEnd={handleDragEnd}>
-              <Droppable droppableId="image-gallery" type="image">
-                {(provided) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef}>
-                    {loading ? (
-                      <div className="min-h-screen text-center text-2xl font-bold font-mooli">
-                        <h1>Loading...</h1>
-                      </div>
-                    ) : (
+            <div>
+              {loading ? (
+                <div className="min-h-screen text-center text-2xl font-bold font-mooli">
+                  <h1>Loading...</h1>
+                </div>
+              ) : (
+                <div>
+                  <DndContext
+                    collisionDetection={closestCenter}
+                    onDragEnd={onDragEnd}
+                  >
+                    <SortableContext
+                      items={images}
+                      strategy={rectSortingStrategy}
+                    >
                       <main className="mx-4 sm:mx-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-                        {images.slice(0, 12).map((image, index) => (
-                          <Draggable
-                            key={image.id.toString()}
-                            draggableId={image.id.toString()}
-                            index={index}
-                          >
-                            {(provided) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                <div className="">
-                                  <img
-                                    className="rounded-t shadow-lg"
-                                    src={image.webformatURL}
-                                    alt={image.tags}
-                                  />
-                                  <p className="text-sm rounded-b font-bodyFont bg-white/20 text-white px-4 py-4 w-full h-[50px] bottom-0">
-                                    Tags:{" "}
-                                    <span className="text-black font-bold">
-                                      {" "}
-                                      {image.tags}
-                                    </span>
-                                  </p>
-                                </div>
-                              </div>
-                            )}
-                          </Draggable>
+                        {filteredImages.map((image, index) => (
+                          <SortableUser key={index} image={image} />
                         ))}
                       </main>
-                    )}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
+                    </SortableContext>
+                  </DndContext>
+                </div>
+              )}
+            </div>
+
             <footer
               className={`flex justify-between duration-700 text-[10px] p-6 px-6 md:px-10 mt-10 border-t border-t-white`}
             >
