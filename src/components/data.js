@@ -1,91 +1,108 @@
+import Air1 from "../assets/air1.webp";
+import Octopus from "../assets/octopus.jpeg";
+import BlueCute from "../assets/blue-cute.webp";
+import Feathers from "../assets/feathers.jpeg";
+import Cow1 from '../assets/cow1.jpeg';
+import Pexels from '../assets/pexels-robert-stokoe-1007227.jpg';
+import Rabbit1 from '../assets/rabbit1.jpeg';
+import Sea1 from '../assets/sea1.jpeg';
+import Shark from '../assets/shark.webp';
+import Cute2 from '../assets/cute2.jpeg';
+import Sea2 from '../assets/sea2.webp';
+import Dog1 from '../assets/dog1.jpeg';
+import Cow2 from '../assets/cow2.jpeg';
+import Cute from '../assets/cute.webp';
+import Pea from '../assets/pea.jpeg';
+
+
 export  const data = [
         {
                 id: "1",
-                src: "/src/assets/feathers.jpeg",
+                src: Feathers,
                 tags: "Aerial",
                 alt: "Aerial"
         },
         {
                 id: "2",
-                src: '../src/assets/octopus.jpeg',
+                src: Octopus,
                 tags: "Aquatic",
                 alt: "Aquatic"
         },
         {
                 id: "3",
-                src: '../src/assets/blue-cute.webp',
+                src: BlueCute,
                 tags: "Aerial",
                 alt: "Aerial"
         },
         {
                 id: "4",
-                src: '../src/assets/aerial1.webp',
+                src: Air1,
                 tags: "Aerial",
                 alt: "Aerial"
         },
         {
                 id: "5",
-                src: '../src/assets/cow1.jpeg',
+                src: Cow1,
                 tags: "Terrestrial",
                 alt: "Terrestrial"
         },
         {
                 id: "6",
-                src: '../src/assets/pexels-robert-stokoe-1007227.jpg',
+                src: Pexels,
                 tags: "Aerial",
                 alt: "Aerial"
         },
         {
                 id: "7",
-                src: '../src/assets/rabbit1.jpeg',
+                src: Rabbit1,
                 tags: "Terrestrial",
                 alt: "Terrestrial"
         },
         {
                 id: "8",
-                src: '../src/assets/sea1.jpeg',
+                src: Sea1,
                 tags: "Aquatic",
                 alt: "Aquatic"
         },
         {
                 id: "9",
-                src: '../src/assets/shark.webp',
+                src: Shark,
                 tags: "Aquatic",
                 alt: "Aquatic"
         },
         {
                 id: "10",
-                src: '../src/assets/cute2.jpeg',
+                src: Cute2,
                 tags: "Aerial",
                 alt: "Aerial"
         },
         {
                 id: "11",
-                src: '../src/assets/sea2.webp',
+                src: Sea2,
                 tags: "Aquatic",
                 alt: "Aquatic"
         },
         {
                 id: "12",
-                src: '../src/assets/dog1.jpeg',
+                src: Dog1,
                 tags: "Terrestrial",
                 alt: "Terrestrial",
         },
         {
                 id: "13",
-                src: '../src/assets/cow2.jpeg',
+                src: Cow2,
                 tags: "Terrestrial",
                 alt: "Terrestrial",
         },
         {
                 id: "14",
-                src: '../src/assets/cute.webp',
+                src: Cute,
                 tags: "Aerial",
                 alt: "Aerial",
         },
         {
                 id: "15",
-                src: '../src/assets/pea.jpeg',
+                src: Pea,
                 tags: "Terrestrial",
                 alt: "Terrestrial",
         },
