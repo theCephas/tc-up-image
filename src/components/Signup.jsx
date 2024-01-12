@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Signup() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
-  const [registerDisplayName, setRegisterDisplayName] = useState(""); // New state for display name
+  const [registerDisplayName, setRegisterDisplayName] = useState("");
   const navigate = useNavigate();
 
   const register = async () => {
@@ -143,7 +143,7 @@ export default function Signup() {
           <button
             type="button"
             onClick={register}
-            className="flex m-auto mt-8 p-3 px-6 bg-gradient-to-l from-zinc-400 to-stone-700 rounded-2xl hover:bg-gradient-to-l from-stone-700 to-zinc-300 rounded-xl text-sm sm:text-xl font-semibold tracking-widest transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-500"
+            className="flex m-auto mt-8 p-3 px-6 bg-gradient-to-l from-zinc-400 to-stone-700 rounded-2xl hover:bg-gradient-to-l text-sm sm:text-xl font-semibold tracking-widest transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-500"
           >
             Login
           </button>

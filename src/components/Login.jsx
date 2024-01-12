@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -9,7 +9,17 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [initialEmail, setInitialEmail] = useState("user@example.com");
+  // eslint-disable-next-line no-unused-vars
+  const [initialPassword, setInitialPassword] = useState("1Password");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Set initial values when the component mounts
+    setLoginEmail(initialEmail);
+    setLoginPassword(initialPassword);
+  }, [initialEmail, initialPassword]);
 
   const login = async () => {
     try {
@@ -30,16 +40,19 @@ export default function Login() {
         error.code === "auth/invalid-email" ||
         error.code === "auth/invalid-login-credentials"
       ) {
-        toast.error("Invalid email or password. Use user@example.com and 1Password as default.", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000, // 3 seconds
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          transition: Slide,
-          className: "rounded-xl"
-        });
+        toast.error(
+          "Invalid email or password. Use user@example.com and 1Password as default.",
+          {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            transition: Slide,
+            className: "rounded-xl",
+          }
+        );
       }
     }
   };
@@ -64,6 +77,7 @@ export default function Login() {
           <input
             type="email"
             placeholder="user@example.com"
+            defaultValue={initialEmail}
             className="border-b border-white mb-10 border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic text-sm sm:text-[14px]"
             required
             onChange={(event) => {
@@ -75,6 +89,7 @@ export default function Login() {
           <input
             type="password"
             placeholder="1Password"
+            defaultValue={initialPassword}
             className="border-b border-white border-opacity-50 py-1 pl-2 text-white bg-transparent focus:outline-none focus:border-white transition ease-in-out duration-700 focus:-translate-y-1 focus:scale-105 w-auto italic text-sm sm:text-[14px]"
             required
             onChange={(event) => {
@@ -85,7 +100,7 @@ export default function Login() {
           <button
             type="button"
             onClick={login}
-            className="flex m-auto mt-8 p-3 px-6 bg-gradient-to-l from-zinc-400 to-stone-700 rounded-2xl hover:bg-gradient-to-l from-stone-700 to-zinc-300 rounded-xl text-sm sm:text-xl font-semibold tracking-widest transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-500"
+            className="flex m-auto mt-8 p-3 px-6 bg-gradient-to-l to-stone-700 rounded-2xl hover:bg-gradient-to-l from-stone-700 text-sm sm:text-xl font-semibold tracking-widest transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-500"
           >
             Login
           </button>

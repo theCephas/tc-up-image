@@ -19,14 +19,21 @@ import { mdiAccount } from "@mdi/js";
 import { mdiMagnify } from "@mdi/js";
 import { motion, useCycle, AnimatePresence } from "framer-motion";
 import { data } from "./data";
-import { DndContext,
-        closestCenter,
-        useSensors,
-        KeyboardSensor,
-        MouseSensor,
-        TouchSensor,
-        useSensor, } from "@dnd-kit/core";
-import { SortableContext, arrayMove, useSortable, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import {
+  DndContext,
+  closestCenter,
+  useSensors,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  useSortable,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import PropTypes from "prop-types";
 
@@ -88,12 +95,12 @@ export default function Home() {
     });
   };
   const sensors = useSensors(
-        useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
-        useSensor(TouchSensor, {
-          activationConstraint: { delay: 50, tolerance: 10 },
-        }),
-        useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
-      )
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 50, tolerance: 10 },
+    }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+  );
   const SortableUser = ({ image }) => {
     const { attributes, listeners, setNodeRef, transform, transition } =
       useSortable({ id: image.id });
@@ -110,13 +117,13 @@ export default function Home() {
         {...listeners}
         key={image.id}
       >
-        <div className="m-auto w-[300px]">
+        <div className="m-auto w-full sm:w-[300px]">
           <img
-            className="rounded-t shadow-lg w-[300px] h-[200px]"
+            className="rounded-t shadow-lg w-full sm:w-[350px] h-[300px] sm:h-[250px]"
             src={image.src}
             alt={image.alt}
           />
-          <p className="text-sm rounded-b font-bodyFont w-[300px] bg-white/20 text-white px-4 py-4 h-[50px] bottom-0">
+          <p className="text-sm rounded-b font-bodyFont sm:w-[300px] bg-white/20 text-white px-4 py-4 h-[50px] bottom-0">
             #<span className="text-black font-bold">{image.tags}</span>
           </p>
         </div>
@@ -158,11 +165,11 @@ export default function Home() {
           <div>
             <header className="flex justify-between font-bodyFont py-4 px-4 mb-10 border-b border-white/40 w-full">
               <div className="flex">
-                <Link to="/Home">
+                <Link to="/Home" className="flex">
                   <Icon path={mdiImageAutoAdjust} size={2} />
 
                   <div className="sm:mt-2 sm:ml-3 ">
-                    <p className="text-white font-bold hidden md:contents text-2xl">
+                    <p className="text-white font-bold hidden lg:flex text-2xl">
                       Image Gallery
                     </p>
                   </div>
@@ -175,11 +182,15 @@ export default function Home() {
                     name="search"
                     id=""
                     placeholder="Find a photo by tag"
-                    className="bg-black/10 w-[150px] sm:w-[25rem] md:w-[28rem] text-white rounded border border-black/10 p-4 text-sm"
+                    className="bg-black/10 w-[150px] sm:w-[25rem] md:w-[28rem] text-white rounded border border-black/10 p-4 text-[10px]"
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                   <p className="absolute inset-y-0 cursor-pointer right-0 mr-2 mt-4 ml-[-25px] top-0 ">
-                    <Icon className="text-white" path={mdiMagnify} size={1} />
+                    <Icon
+                      className="text-white/60"
+                      path={mdiMagnify}
+                      size={0.7}
+                    />
                   </p>
                 </div>
               </form>
@@ -280,7 +291,7 @@ export default function Home() {
                   <h1>Loading...</h1>
                 </div>
               ) : (
-                <main className="mx-4 sm:mx-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+                <main className="mx-4 sm:mx-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                   <DndContext
                     collisionDetection={closestCenter}
                     onDragEnd={onDragEnd}
@@ -300,7 +311,7 @@ export default function Home() {
               className={`flex justify-between duration-700 text-[10px] p-6 px-6 md:px-10 mt-10 border-t border-t-white`}
             >
               <div className="flex">
-                <p className={`pr-2 text-black`}>&copy;2023</p>
+                <p className={`pr-2 text-black`}>&copy;2024</p>
                 <a
                   href="https://github.com/theCephas/tc-up-image"
                   className="inline cursor-pointer text-sky-500 "
@@ -311,7 +322,7 @@ export default function Home() {
               <div className={` text-black flex mt-[-4px]`}>
                 <a
                   className=" hover:text-sky-500 duration-700"
-                  href="https://www.linkedin.com/in/iseoluwa-osho"
+                  href="https://www.linkedin.com/in/osho-iseoluwa"
                 >
                   <Icon path={mdiLinkedin} size={1} />
                 </a>
